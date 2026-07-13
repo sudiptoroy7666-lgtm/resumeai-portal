@@ -9,7 +9,6 @@
             --bg: #0a0c10;
             --bg-secondary: #11141b;
             --card: #161a22;
-            --card-hover: #1b1f29;
             --border: #252a36;
             --border-focus: #4f7cff;
             --text: #e8eaed;
@@ -23,20 +22,14 @@
             --error-bg: rgba(255, 92, 108, 0.08);
             --success: #2dd4a0;
             --success-bg: rgba(45, 212, 160, 0.08);
-            --warning: #f59e0b;
-            --warning-bg: rgba(245, 158, 11, 0.08);
             --radius-sm: 8px;
             --radius: 12px;
             --radius-lg: 16px;
             --radius-xl: 20px;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.5);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
             --shadow-glow: 0 0 0 4px rgba(79, 124, 255, 0.12);
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Consolas', monospace;
         }
 
         * {
@@ -46,7 +39,6 @@
         }
 
         html {
-            scroll-behavior: smooth;
             -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -56,10 +48,9 @@
             background: var(--bg);
             background-image:
                 radial-gradient(ellipse at 50% 0%, rgba(79, 124, 255, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 100%, rgba(45, 212, 160, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, rgba(79, 124, 255, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 80% 100%, rgba(45, 212, 160, 0.04) 0%, transparent 50%);
             color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -70,34 +61,6 @@
             overflow-x: hidden;
         }
 
-        /* Subtle animated background dots */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 32px 32px;
-            animation: bgShift 60s linear infinite;
-        }
-
-        @keyframes bgShift {
-            0%,
-            100% {
-                background-position: 0 0;
-            }
-            25% {
-                background-position: 8px 0;
-            }
-            50% {
-                background-position: 8px 8px;
-            }
-            75% {
-                background-position: 0 8px;
-            }
-        }
-
         .container {
             width: 100%;
             max-width: 560px;
@@ -105,14 +68,12 @@
             z-index: 1;
         }
 
-        /* Card */
         .card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius-xl);
             padding: 36px 32px 32px;
             box-shadow: var(--shadow);
-            transition: box-shadow var(--transition-slow), border-color var(--transition-slow);
             position: relative;
             overflow: hidden;
         }
@@ -151,12 +112,10 @@
             }
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 28px;
         }
-
         .header-icon {
             width: 48px;
             height: 48px;
@@ -169,7 +128,6 @@
             box-shadow: 0 8px 24px var(--accent-glow);
             animation: float 3s ease-in-out infinite;
         }
-
         @keyframes float {
             0%,
             100% {
@@ -179,13 +137,11 @@
                 transform: translateY(-6px);
             }
         }
-
         .header-icon svg {
             width: 22px;
             height: 22px;
             color: #fff;
         }
-
         h1 {
             font-size: 22px;
             font-weight: 700;
@@ -193,23 +149,16 @@
             margin: 0 0 4px;
             color: #fff;
         }
-
         @media (min-width: 768px) {
             h1 {
                 font-size: 26px;
             }
         }
-
         p.sub {
             color: var(--text-secondary);
             margin: 0;
             font-size: 14px;
             line-height: 1.5;
-        }
-
-        /* Form sections */
-        .form-section {
-            margin-bottom: 6px;
         }
 
         .form-section-title {
@@ -223,7 +172,6 @@
             align-items: center;
             gap: 8px;
         }
-
         .form-section-title::after {
             content: '';
             flex: 1;
@@ -240,13 +188,11 @@
             margin-bottom: 5px;
             margin-top: 16px;
             letter-spacing: -0.1px;
-            transition: color var(--transition-fast);
         }
 
         .input-wrapper {
             position: relative;
         }
-
         .input-icon {
             position: absolute;
             left: 12px;
@@ -254,11 +200,10 @@
             transform: translateY(-50%);
             color: var(--muted);
             pointer-events: none;
-            transition: color var(--transition-fast);
+            transition: color 0.15s;
             display: flex;
             align-items: center;
         }
-
         .input-icon svg {
             width: 16px;
             height: 16px;
@@ -274,12 +219,11 @@
             color: var(--text);
             font-size: 14px;
             font-family: inherit;
-            transition: all var(--transition);
+            transition: all 0.25s;
             letter-spacing: -0.1px;
             appearance: none;
             -webkit-appearance: none;
         }
-
         input[type="text"]:focus,
         input[type="email"]:focus {
             outline: none;
@@ -287,13 +231,9 @@
             box-shadow: var(--shadow-glow);
             background: #131720;
         }
-
-        input[type="text"]:focus+.input-icon,
-        input[type="email"]:focus+.input-icon,
         .input-wrapper:focus-within .input-icon {
             color: var(--accent-light);
         }
-
         input::placeholder {
             color: #555c6b;
             opacity: 1;
@@ -307,7 +247,7 @@
             padding: 30px 20px;
             text-align: center;
             cursor: pointer;
-            transition: all var(--transition);
+            transition: all 0.25s;
             background: var(--bg-secondary);
             position: relative;
             overflow: hidden;
@@ -320,86 +260,33 @@
             justify-content: center;
             gap: 6px;
         }
-
-        #dropZone::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(79, 124, 255, 0.04) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity var(--transition);
-        }
-
         #dropZone:hover {
             border-color: #3d4f6e;
             background: #151a24;
         }
-        #dropZone:hover::before {
-            opacity: 1;
-        }
-
         #dropZone.dragover {
             border-color: var(--accent);
             background: rgba(79, 124, 255, 0.05);
             box-shadow: 0 0 0 8px rgba(79, 124, 255, 0.03);
             transform: scale(1.01);
         }
-        #dropZone.dragover::before {
-            opacity: 1;
-            background: radial-gradient(ellipse at center, rgba(79, 124, 255, 0.1) 0%, transparent 70%);
-        }
-
         #dropZone.has-file {
             border-style: solid;
             border-color: var(--success);
             background: rgba(45, 212, 160, 0.03);
         }
-        #dropZone.has-file::before {
-            opacity: 1;
-            background: radial-gradient(ellipse at center, rgba(45, 212, 160, 0.06) 0%, transparent 70%);
-        }
-
-        .drop-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(79, 124, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition);
-            flex-shrink: 0;
-        }
-        #dropZone.dragover .drop-icon {
-            background: rgba(79, 124, 255, 0.2);
-            transform: scale(1.1);
-        }
-        #dropZone.has-file .drop-icon {
-            background: rgba(45, 212, 160, 0.15);
-        }
-        .drop-icon svg {
-            width: 20px;
-            height: 20px;
-            color: var(--accent-light);
-            transition: color var(--transition);
-        }
-        #dropZone.has-file .drop-icon svg {
-            color: var(--success);
-        }
-
         #dropZone p {
             margin: 0;
             color: var(--text-secondary);
             font-size: 14px;
             pointer-events: none;
-            transition: color var(--transition);
+            transition: color 0.25s;
         }
         #dropZone .drop-hint {
             font-size: 12px;
             color: var(--muted);
             pointer-events: none;
         }
-
         #dropZone .filename {
             color: #fff;
             font-weight: 600;
@@ -413,12 +300,51 @@
             border-radius: 20px;
             display: inline-block;
         }
-
-        input[type="file"] {
-            display: none;
+        .drop-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(79, 124, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+        #dropZone.dragover .drop-icon {
+            background: rgba(79, 124, 255, 0.2);
+            transform: scale(1.1);
+        }
+        #dropZone.has-file .drop-icon {
+            background: rgba(45, 212, 160, 0.15);
+        }
+        .drop-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-light);
+            transition: color 0.25s;
+        }
+        #dropZone.has-file .drop-icon svg {
+            color: var(--success);
         }
 
-        /* Remove file button */
+        /* Hidden file input – use opacity/absolute for cross-browser click reliability */
+        .file-input-wrap {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+        input[type="file"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
         .remove-file-btn {
             display: none;
             margin-top: 8px;
@@ -430,16 +356,15 @@
             text-decoration: underline;
             padding: 4px 8px;
             border-radius: 4px;
-            transition: background var(--transition-fast);
+            transition: background 0.15s;
         }
         .remove-file-btn:hover {
             background: rgba(255, 92, 108, 0.1);
         }
-        #dropZone.has-file~.remove-file-btn {
+        .remove-file-btn.visible {
             display: inline-block;
         }
 
-        /* Progress bar */
         .progress-wrap {
             margin-top: 14px;
             height: 5px;
@@ -457,7 +382,6 @@
             box-shadow: 0 0 10px rgba(79, 124, 255, 0.5);
         }
 
-        /* Status messages */
         .status {
             margin-top: 14px;
             font-size: 13px;
@@ -469,7 +393,6 @@
             line-height: 1.4;
             animation: slideIn 0.25s ease-out;
         }
-
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -480,7 +403,6 @@
                 transform: translateY(0);
             }
         }
-
         .status.error {
             display: flex;
             background: var(--error-bg);
@@ -508,11 +430,9 @@
             height: 16px;
         }
 
-        /* Submit Button */
         .btn-wrapper {
             margin-top: 26px;
         }
-
         button {
             width: 100%;
             padding: 13px 20px;
@@ -523,7 +443,7 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all var(--transition);
+            transition: all 0.25s;
             letter-spacing: -0.1px;
             position: relative;
             overflow: hidden;
@@ -533,23 +453,10 @@
             user-select: none;
             -webkit-user-select: none;
         }
-
-        button::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
         button:hover:not(:disabled) {
             background: linear-gradient(135deg, #5c86ff, #6b90ff);
             box-shadow: 0 6px 24px rgba(79, 124, 255, 0.45);
             transform: translateY(-1px);
-        }
-        button:hover:not(:disabled)::after {
-            transform: translateX(100%);
         }
         button:active:not(:disabled) {
             transform: scale(0.97);
@@ -563,11 +470,6 @@
             box-shadow: none;
             transform: none;
         }
-        button:disabled::after {
-            display: none;
-        }
-
-        /* Button loading spinner */
         button.loading {
             color: transparent;
             pointer-events: none;
@@ -585,14 +487,12 @@
             animation: spin 0.7s linear infinite;
             transform: translate(-50%, -50%);
         }
-
         @keyframes spin {
             to {
                 transform: translate(-50%, -50%) rotate(360deg);
             }
         }
 
-        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -606,7 +506,7 @@
             color: #fff;
             z-index: 1000;
             box-shadow: var(--shadow-lg);
-            transition: transform var(--transition);
+            transition: transform 0.25s;
             pointer-events: none;
             text-align: center;
             max-width: 90vw;
@@ -626,7 +526,6 @@
             background: #2a1518;
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -651,10 +550,6 @@
                 height: 40px;
                 margin-bottom: 10px;
             }
-            .header-icon svg {
-                width: 18px;
-                height: 18px;
-            }
             #dropZone {
                 padding: 22px 14px;
                 min-height: 100px;
@@ -663,16 +558,9 @@
             #dropZone p {
                 font-size: 13px;
             }
-            #dropZone .drop-hint {
-                font-size: 11px;
-            }
             .drop-icon {
                 width: 34px;
                 height: 34px;
-            }
-            .drop-icon svg {
-                width: 17px;
-                height: 17px;
             }
             input[type="text"],
             input[type="email"] {
@@ -682,10 +570,6 @@
             }
             .input-icon {
                 left: 10px;
-            }
-            .input-icon svg {
-                width: 14px;
-                height: 14px;
             }
             button {
                 padding: 12px 16px;
@@ -717,31 +601,6 @@
             }
         }
 
-        @media (min-width: 1200px) {
-            .container {
-                max-width: 600px;
-            }
-            .card {
-                padding: 48px 44px 44px;
-            }
-        }
-
-        /* Dark mode scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2a2f3a;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3a3f4a;
-        }
-
-        /* Focus visible for keyboard nav */
         *:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 3px;
@@ -758,10 +617,8 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="card">
-            <!-- Header -->
             <div class="header">
                 <div class="header-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -769,23 +626,18 @@
                         <polyline points="14 2 14 8 20 8"/>
                         <line x1="16" y1="13" x2="8" y2="13"/>
                         <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
                     </svg>
                 </div>
                 <h1>Submit Your Resume</h1>
-                <p class="sub">Upload your CV &mdash; we accept PDF or Word (.docx) files</p>
+                <p class="sub">Upload your CV — we accept PDF or Word (.docx) files</p>
             </div>
 
-            <!-- Organization Section -->
             <div class="form-section-title">Job Reference</div>
 
             <label for="orgCode">Organization Code</label>
             <div class="input-wrapper">
                 <span class="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                        <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
                 </span>
                 <input type="text" id="orgCode" placeholder="e.g. ACME24" maxlength="20" style="text-transform:uppercase" autocomplete="off">
             </div>
@@ -793,24 +645,17 @@
             <label for="jobId">Job Opening ID</label>
             <div class="input-wrapper">
                 <span class="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/>
-                        <line x1="8" y1="12" x2="16" y2="12"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                 </span>
                 <input type="text" id="jobId" placeholder="e.g. SENIOR_DEV" maxlength="30" style="text-transform:uppercase" autocomplete="off">
             </div>
 
-            <!-- Personal Section -->
             <div class="form-section-title">Personal Information</div>
 
             <label for="fullName">Full Name</label>
             <div class="input-wrapper">
                 <span class="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </span>
                 <input type="text" id="fullName" placeholder="Jane Doe" autocomplete="name">
             </div>
@@ -818,56 +663,44 @@
             <label for="email">Email</label>
             <div class="input-wrapper">
                 <span class="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 </span>
                 <input type="email" id="email" placeholder="jane@example.com" autocomplete="email">
             </div>
 
-            <!-- Resume Upload -->
             <div class="form-section-title">Resume Upload</div>
 
             <label>Resume File</label>
             <div id="dropZone" tabindex="0" role="button" aria-label="Upload resume file">
                 <div class="drop-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 </div>
                 <p>Click to browse or drag your file here</p>
                 <p class="drop-hint">PDF or .docx only, max 10MB</p>
                 <span class="filename" id="filenameDisplay"></span>
             </div>
+            <!-- Hidden file input for cross-browser reliability -->
             <input type="file" id="fileInput" accept=".pdf,.docx">
             <button class="remove-file-btn" id="removeFileBtn" type="button">✕ Remove file</button>
 
-            <div class="progress-wrap" id="progressWrap">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
+            <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
             <div class="status" id="status">
                 <span class="status-icon" id="statusIcon"></span>
                 <span id="statusText"></span>
             </div>
 
-            <!-- Submit -->
             <div class="btn-wrapper">
                 <button id="submitBtn" disabled>Select a file to continue</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
     <!-- Mammoth.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.7.0/mammoth.browser.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.7.0/mammoth.browser.min.js"></script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -876,27 +709,25 @@
         import { getAuth, signInAnonymously } from
         "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-        // ===== REPLACE WITH YOUR FIREBASE CONFIG =====
         const firebaseConfig = {
-  apiKey: "AIzaSyAE8ayosjQT6rVjWSyF_-4fp80tWqqgchM",
-  authDomain: "ai-resume-screener-df66d.firebaseapp.com",
-  projectId: "ai-resume-screener-df66d",
-  storageBucket: "ai-resume-screener-df66d.firebasestorage.app",
-  messagingSenderId: "546771929700",
-  appId: "1:546771929700:web:4abe05a890fef4e8d02d71"
-};
-
-
-        // ============================================
+            apiKey: "AIzaSyAE8ayosjQT6rVjWSyF_-4fp80tWqqgchM",
+            authDomain: "ai-resume-screener-df66d.firebaseapp.com",
+            projectId: "ai-resume-screener-df66d",
+            storageBucket: "ai-resume-screener-df66d.firebasestorage.app",
+            messagingSenderId: "546771929700",
+            appId: "1:546771929700:web:4abe05a890fef4e8d02d71"
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js";
+        // Set PDF.js worker only if pdfjsLib is available
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js";
+        }
 
-        // DOM elements
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
         const filenameDisplay = document.getElementById('filenameDisplay');
@@ -914,17 +745,13 @@
         const MAX_SIZE_BYTES = 10 * 1024 * 1024;
         let toastTimer = null;
 
-        // Toast helper
         function showToast(message, type = '') {
             if (toastTimer) clearTimeout(toastTimer);
             toast.textContent = message;
             toast.className = 'toast ' + type + ' show';
-            toastTimer = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // Status helper
         const statusIconsSVG = {
             error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
             success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="9 12 12 15 16 9"/></svg>',
@@ -962,16 +789,18 @@
         }
 
         function updateDropZoneUI(hasFile) {
+            const mainP = dropZone.querySelector('p');
+            const hintP = dropZone.querySelector('.drop-hint');
             if (hasFile) {
                 dropZone.classList.add('has-file');
-                dropZone.querySelector('p').textContent = 'File selected';
-                dropZone.querySelector('.drop-hint').textContent = 'Click or drop to replace';
-                removeFileBtn.style.display = 'inline-block';
+                if (mainP) mainP.textContent = 'File selected';
+                if (hintP) hintP.textContent = 'Click or drop to replace';
+                removeFileBtn.classList.add('visible');
             } else {
                 dropZone.classList.remove('has-file');
-                dropZone.querySelector('p').textContent = 'Click to browse or drag your file here';
-                dropZone.querySelector('.drop-hint').textContent = 'PDF or .docx only, max 10MB';
-                removeFileBtn.style.display = 'none';
+                if (mainP) mainP.textContent = 'Click to browse or drag your file here';
+                if (hintP) hintP.textContent = 'PDF or .docx only, max 10MB';
+                removeFileBtn.classList.remove('visible');
             }
         }
 
@@ -988,8 +817,14 @@
             submitBtn.classList.remove('loading');
         }
 
-        // Drag & drop handlers
-        dropZone.addEventListener('click', () => fileInput.click());
+        // Click on drop zone triggers file input
+        dropZone.addEventListener('click', (e) => {
+            // Prevent if clicking remove button (it's outside dropZone but just in case)
+            e.stopPropagation();
+            fileInput.click();
+        });
+
+        // Drag & drop
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.classList.add('dragover');
@@ -1001,13 +836,21 @@
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-        });
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) handleFile(e.target.files[0]);
+            const files = e.dataTransfer.files;
+            if (files && files.length > 0) {
+                handleFile(files[0]);
+            }
         });
 
-        // Keyboard accessibility for drop zone
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files && files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // Keyboard accessibility
         dropZone.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -1015,9 +858,10 @@
             }
         });
 
-        // Remove file button
+        // Remove file
         removeFileBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            e.preventDefault();
             resetFileState();
             showToast('File removed', '');
         });
@@ -1035,9 +879,7 @@
             const isLegacyDoc = nameLower.endsWith('.doc') && !isDocx;
 
             if (isLegacyDoc) {
-                showStatus(
-                    "We can't read old .doc files. Please re-save as PDF or .docx and upload again.",
-                    'error');
+                showStatus("We can't read old .doc files. Please re-save as PDF or .docx and upload again.", 'error');
                 filenameDisplay.textContent = '';
                 updateDropZoneUI(false);
                 showToast('Unsupported: old .doc format', 'error');
@@ -1067,14 +909,23 @@
 
             try {
                 setProgress(25);
-                const rawText = isPdf ? await extractPdfText(file) : await extractDocxText(file);
+                let rawText = '';
+                if (isPdf) {
+                    if (typeof pdfjsLib === 'undefined') {
+                        throw new Error('PDF reader not loaded. Please check your connection and refresh.');
+                    }
+                    rawText = await extractPdfText(file);
+                } else {
+                    if (typeof mammoth === 'undefined') {
+                        throw new Error('DOCX reader not loaded. Please check your connection and refresh.');
+                    }
+                    rawText = await extractDocxText(file);
+                }
                 setProgress(75);
 
                 const cleaned = cleanTextForAts(rawText);
                 if (!cleaned || cleaned.trim().length < 40) {
-                    showStatus(
-                        'Could not find readable text. If this is a scanned image, please upload a text-based PDF or Word document.',
-                        'error');
+                    showStatus('Could not find readable text. If this is a scanned image, please upload a text-based PDF or Word document.', 'error');
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Select a file to continue';
                     submitBtn.classList.remove('loading');
@@ -1093,9 +944,8 @@
                 submitBtn.classList.remove('loading');
                 showToast('Resume ready!', 'success');
             } catch (err) {
-                console.error(err);
-                showStatus('Something went wrong reading this file. Please try a different file.',
-                'error');
+                console.error('File processing error:', err);
+                showStatus(err.message || 'Something went wrong reading this file. Please try a different file.', 'error');
                 submitBtn.textContent = 'Select a file to continue';
                 submitBtn.classList.remove('loading');
                 setProgress(0);
@@ -1109,15 +959,12 @@
             const arrayBuffer = await file.arrayBuffer();
             const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
             let fullText = '';
-
             for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 const page = await pdf.getPage(pageNum);
                 const content = await page.getTextContent();
-
                 let lastY = null,
                     lineBuffer = '';
                 const lines = [];
-
                 for (const item of content.items) {
                     const y = item.transform[5];
                     if (lastY !== null && Math.abs(y - lastY) > 2) {
@@ -1149,7 +996,7 @@
                 .split('\n').map(l => l.trim()).join('\n').trim();
         }
 
-        // Submit handler
+        // Submit
         submitBtn.addEventListener('click', async () => {
             const orgCode = document.getElementById('orgCode').value.trim().toUpperCase();
             const jobId = document.getElementById('jobId').value.trim().toUpperCase();
@@ -1163,8 +1010,7 @@
             if (!fullName) { showStatus('Please enter your full name.', 'error');
                 showToast('Missing full name', 'error'); return; }
             if (!email || !email.includes('@')) { showStatus('Please enter a valid email address.',
-                    'error');
-                showToast('Invalid email address', 'error'); return; }
+                'error'); showToast('Invalid email address', 'error'); return; }
             if (!extractedText) { showStatus('Please upload a resume first.', 'error');
                 showToast('No resume uploaded', 'error'); return; }
 
@@ -1175,17 +1021,13 @@
 
             try {
                 await signInAnonymously(auth);
-
                 const jobRef = doc(db, "organizations", orgCode, "job_openings", jobId);
                 const jobSnap = await getDoc(jobRef);
                 if (!jobSnap.exists()) {
-                    throw new Error(
-                        `Job "${jobId}" not found in organization "${orgCode}". Please verify with HR.`
-                        );
+                    throw new Error(`Job "${jobId}" not found in organization "${orgCode}". Please verify with HR.`);
                 }
 
-                await addDoc(collection(db, "organizations", orgCode, "job_openings", jobId,
-                    "candidates"), {
+                await addDoc(collection(db, "organizations", orgCode, "job_openings", jobId, "candidates"), {
                     fileName: selectedFile.name,
                     orgId: orgCode,
                     jobId: jobId,
@@ -1204,10 +1046,8 @@
                 submitBtn.classList.remove('loading');
                 showToast('Application submitted! 🎉', 'success');
 
-                // Reset form after delay
                 setTimeout(() => {
-                    document.querySelectorAll('input[type="text"], input[type="email"]').forEach(
-                        i => i.value = '');
+                    document.querySelectorAll('input[type="text"], input[type="email"]').forEach(i => i.value = '');
                     resetFileState();
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Submit Another Application';
@@ -1216,8 +1056,7 @@
                 }, 3500);
             } catch (err) {
                 console.error(err);
-                showStatus('❌ ' + (err.message || 'Submission failed. Please try again.'),
-                'error');
+                showStatus('❌ ' + (err.message || 'Submission failed. Please try again.'), 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Application';
                 submitBtn.classList.remove('loading');
@@ -1225,7 +1064,7 @@
             }
         });
 
-        // Initial UI state
+        // Initialize UI
         updateDropZoneUI(false);
     </script>
 </body>
