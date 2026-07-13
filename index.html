@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply — Submit Your Resume</title>
+  <style>
+    :root {
+      --bg: #0f1115; --card: #171a21; --border: #2a2f3a;
+      --text: #e8eaed; --muted: #9aa2b1; --accent: #4f7cff;
+      --accent-hover: #3d68f0; --error: #ff6b6b; --success: #3ddc97;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0; padding: 40px 16px; min-height: 100vh;
+    }
+    .card {
+      max-width: 520px; margin: 0 auto; background: var(--card);
+      border: 1px solid var(--border); border-radius: 14px; padding: 32px;
+    }
+    h1 { font-size: 20px; margin: 0 0 6px; }
+    p.sub { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+    label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; margin-top: 18px; }
+    input[type="text"], input[type="email"] {
+      width: 100%; padding: 10px 12px; background: #0f1115;
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-size: 14px;
+    }
+    input:focus { outline: none; border-color: var(--accent); }
+    #dropZone {
+      margin-top: 18px; border: 2px dashed var(--border);
+      border-radius: 10px; padding: 28px 16px; text-align: center;
+      cursor: pointer; transition: all 0.15s;
+    }
+    #dropZone.dragover { border-color: var(--accent); background: rgba(79,124,255,0.06); }
+    #dropZone p { margin: 0; color: var(--muted); font-size: 14px; }
+    #dropZone .filename { color: var(--text); font-weight: 500; margin-top: 4px; }
+    input[type="file"] { display: none; }
+    button {
+      width: 100%; margin-top: 24px; padding: 12px;
+      background: var(--accent); color: white; border: none;
+      border-radius: 8px; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    button:hover:not(:disabled) { background: var(--accent-hover); }
+    button:disabled { background: #3a3f4a; cursor: not-allowed; color: var(--muted); }
+    .status { margin-top: 16px; font-size: 13px; padding: 10px 12px; border-radius: 8px; display: none; }
+    .status.error { display: block; background: rgba(255,107,107,0.1); color: var(--error); }
+    .status.success { display: block; background: rgba(61,220,151,0.1); color: var(--success); }
+    .status.info { display: block; background: rgba(79,124,255,0.1); color: var(--accent); }
+    .progress-wrap { margin-top: 12px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; display: none; }
+    .progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.2s; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Submit Your Resume</h1>
+  <p class="sub">Upload your CV — we accept PDF or Word (.docx) files.</p>
+
+  <label for="orgCode">Organization Code</label>
+  <input type="text" id="orgCode" placeholder="e.g. ACME24" maxlength="20" style="text-transform:uppercase">
+
+  <label for="jobId">Job Opening ID</label>
+  <input type="text" id="jobId" placeholder="e.g. SENIOR_DEV" maxlength="30" style="text-transform:uppercase">
+
+  <label for="fullName">Full Name</label>
+  <input type="text" id="fullName" placeholder="Jane Doe">
+
+  <label for="email">Email</label>
+  <input type="email" id="email" placeholder="jane@example.com">
+
+  <label>Resume</label>
+  <div id="dropZone">
+    <p>Click to browse or drag your file here</p>
+    <p class="sub" style="margin:4px 0 0;font-size:12px;">PDF or .docx only, max 10MB</p>
+    <div class="filename" id="filenameDisplay"></div>
+  </div>
+  <input type="file" id="fileInput" accept=".pdf,.docx">
+
+  <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="status" id="status"></div>
+
+  <button id="submitBtn" disabled>Select a file to continue</button>
+</div>
+
+<!-- PDF.js for PDF extraction -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
+<!-- Mammoth.js for DOCX extraction -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.7.0/mammoth.browser.min.js"></script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, doc, updateDoc, increment, getDoc } 
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getAuth, signInAnonymously } 
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  // ===== REPLACE WITH YOUR FIREBASE CONFIG =====
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  // ============================================
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js";
+
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const filenameDisplay = document.getElementById('filenameDisplay');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusEl = document.getElementById('status');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+
+  let selectedFile = null;
+  let extractedText = null;
+  const MAX_SIZE_BYTES = 10 * 1024 * 1024;
+
+  function showStatus(message, type) {
+    statusEl.textContent = message;
+    statusEl.className = 'status ' + type;
+  }
+  function clearStatus() { statusEl.className = 'status'; statusEl.textContent = ''; }
+  function setProgress(pct) {
+    progressWrap.style.display = pct > 0 && pct < 100 ? 'block' : 'none';
+    progressBar.style.width = pct + '%';
+  }
+
+  // Drag & drop handlers
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length) handleFile(e.target.files[0]);
+  });
+
+  async function handleFile(file) {
+    clearStatus();
+    extractedText = null;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Select a file to continue';
+
+    const nameLower = file.name.toLowerCase();
+    const isPdf = nameLower.endsWith('.pdf');
+    const isDocx = nameLower.endsWith('.docx');
+    const isLegacyDoc = nameLower.endsWith('.doc') && !isDocx;
+
+    if (isLegacyDoc) {
+      showStatus("We can't read old .doc files. Please re-save as PDF or .docx and upload again.", 'error');
+      filenameDisplay.textContent = '';
+      return;
+    }
+    if (!isPdf && !isDocx) {
+      showStatus('Unsupported file type. Please upload a PDF or .docx file.', 'error');
+      filenameDisplay.textContent = '';
+      return;
+    }
+    if (file.size > MAX_SIZE_BYTES) {
+      showStatus('File is too large. Please keep your resume under 10MB.', 'error');
+      filenameDisplay.textContent = '';
+      return;
+    }
+
+    selectedFile = file;
+    filenameDisplay.textContent = file.name;
+    showStatus('Reading and extracting text…', 'info');
+    submitBtn.textContent = 'Processing…';
+
+    try {
+      setProgress(30);
+      const rawText = isPdf ? await extractPdfText(file) : await extractDocxText(file);
+      setProgress(80);
+
+      const cleaned = cleanTextForAts(rawText);
+      if (!cleaned || cleaned.trim().length < 40) {
+        showStatus('Could not find readable text. If this is a scanned image, please upload a text-based PDF or Word document.', 'error');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Select a file to continue';
+        setProgress(0);
+        return;
+      }
+
+      extractedText = cleaned;
+      setProgress(100);
+      setTimeout(() => setProgress(0), 400);
+      showStatus('✅ Resume text extracted successfully. Ready to submit.', 'success');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Application';
+    } catch (err) {
+      console.error(err);
+      showStatus('Something went wrong reading this file. Please try a different file.', 'error');
+      submitBtn.textContent = 'Select a file to continue';
+      setProgress(0);
+    }
+  }
+
+  async function extractPdfText(file) {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let fullText = '';
+    
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      const page = await pdf.getPage(pageNum);
+      const content = await page.getTextContent();
+      
+      // Group by vertical position to preserve line breaks
+      let lastY = null, lineBuffer = '';
+      const lines = [];
+      
+      for (const item of content.items) {
+        const y = item.transform[5];
+        if (lastY !== null && Math.abs(y - lastY) > 2) {
+          lines.push(lineBuffer);
+          lineBuffer = '';
+        }
+        lineBuffer += item.str + (item.hasEOL ? '' : ' ');
+        lastY = y;
+      }
+      if (lineBuffer) lines.push(lineBuffer);
+      fullText += lines.join('\n') + '\n\n';
+    }
+    return fullText;
+  }
+
+  async function extractDocxText(file) {
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    return result.value;
+  }
+
+  function cleanTextForAts(raw) {
+    if (!raw) return '';
+    return raw
+      .replace(/\r\n/g, '\n')
+      .replace(/\u00A0/g, ' ')
+      .replace(/[ \t]+/g, ' ')
+      .replace(/\n{3,}/g, '\n\n')
+      .split('\n').map(l => l.trim()).join('\n').trim();
+  }
+
+  submitBtn.addEventListener('click', async () => {
+    const orgCode = document.getElementById('orgCode').value.trim().toUpperCase();
+    const jobId = document.getElementById('jobId').value.trim().toUpperCase();
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!orgCode) { showStatus('Please enter the Organization Code from HR.', 'error'); return; }
+    if (!jobId) { showStatus('Please enter the Job Opening ID from HR.', 'error'); return; }
+    if (!fullName) { showStatus('Please enter your full name.', 'error'); return; }
+    if (!email || !email.includes('@')) { showStatus('Please enter a valid email address.', 'error'); return; }
+    if (!extractedText) { showStatus('Please upload a resume first.', 'error'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+    showStatus('Submitting your application…', 'info');
+
+    try {
+      await signInAnonymously(auth);
+
+      const jobRef = doc(db, "organizations", orgCode, "job_openings", jobId);
+      const jobSnap = await getDoc(jobRef);
+      if (!jobSnap.exists()) {
+        throw new Error(`Job "${jobId}" not found in organization "${orgCode}". Please verify with HR.`);
+      }
+
+      await addDoc(collection(db, "organizations", orgCode, "job_openings", jobId, "candidates"), {
+        fileName: selectedFile.name,
+        orgId: orgCode,
+        jobId: jobId,
+        name: fullName,
+        email: email,
+        resumeText: extractedText,
+        status: "pending",
+        score: 0,
+        uploadedAt: new Date().toISOString()
+      });
+
+      await updateDoc(jobRef, { cvCount: increment(1) });
+
+      showStatus('✅ Application submitted successfully. Good luck!', 'success');
+      submitBtn.textContent = 'Submitted ✓';
+      
+      setTimeout(() => {
+        document.querySelectorAll('input').forEach(i => i.value = '');
+        filenameDisplay.textContent = '';
+        extractedText = null;
+        selectedFile = null;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submit Another Application';
+      }, 3000);
+    } catch (err) {
+      console.error(err);
+      showStatus('❌ ' + (err.message || 'Submission failed. Please try again.'), 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Application';
+    }
+  });
+</script>
+</body>
+</html>
