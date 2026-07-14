@@ -6,37 +6,34 @@
 <title>Apply — Submit Your Resume</title>
 <style>
     :root {
-        --bg: #0a0c10;
-        --bg-secondary: #11141b;
-        --card: #161a22;
-        --border: #252a36;
-        --border-focus: #4f7cff;
-        --text: #e8eaed;
-        --text-secondary: #b0b8c5;
-        --muted: #7d8798;
-        --accent: #4f7cff;
-        --accent-light: #6b90ff;
-        --accent-hover: #3d68f0;
-        --accent-glow: rgba(79, 124, 255, 0.25);
-        --error: #ff5c6c;
-        --error-bg: rgba(255, 92, 108, 0.08);
-        --success: #2dd4a0;
-        --success-bg: rgba(45, 212, 160, 0.08);
+        --bg: #F0FDFA;
+        --bg-secondary: #FFFFFF;
+        --card: #FFFFFF;
+        --border: #CBD5E1;
+        --border-focus: #14B8A6;
+        --text: #134E4A;
+        --text-secondary: #475569;
+        --muted: #64748B;
+        --accent: #14B8A6;
+        --accent-light: #2DD4BF;
+        --accent-hover: #0D9488;
+        --accent-glow: rgba(20, 184, 166, 0.18);
+        --error: #DC2626;
+        --error-bg: rgba(220, 38, 38, 0.08);
+        --success: #059669;
+        --success-bg: rgba(5, 150, 105, 0.08);
         --radius-sm: 8px;
         --radius: 12px;
         --radius-lg: 16px;
         --radius-xl: 20px;
-        --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
-        --shadow-glow: 0 0 0 4px rgba(79, 124, 255, 0.12);
+        --shadow: 0 4px 20px rgba(19, 78, 74, 0.1);
+        --shadow-lg: 0 12px 40px rgba(19, 78, 74, 0.15);
+        --shadow-glow: 0 0 0 4px rgba(20, 184, 166, 0.12);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; }
     body {
-        background: var(--bg);
-        background-image:
-            radial-gradient(ellipse at 50% 0%, rgba(79, 124, 255, 0.06) 0%, transparent 60%),
-            radial-gradient(ellipse at 80% 100%, rgba(45, 212, 160, 0.04) 0%, transparent 50%);
+        background: linear-gradient(135deg, #F0FDFA 0%, #ECFEFF 50%, #F0FDFA 100%);
         color: var(--text);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         min-height: 100vh;
@@ -61,17 +58,17 @@
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 3px;
-        background: linear-gradient(90deg, var(--accent), #6b90ff, #8b5cf6, var(--accent));
+        background: linear-gradient(90deg, #14B8A6, #2DD4BF, #0D9488, #14B8A6);
         background-size: 200% 100%;
         animation: shimmer 4s ease-in-out infinite;
-        opacity: 0.8;
+        opacity: 0.85;
     }
     @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
     @media (min-width: 768px) { .card { padding: 44px 40px 40px; } }
     .header { text-align: center; margin-bottom: 28px; }
     .header-icon {
         width: 48px; height: 48px;
-        background: linear-gradient(135deg, var(--accent), #6b90ff);
+        background: linear-gradient(135deg, #14B8A6, #2DD4BF);
         border-radius: var(--radius);
         display: inline-flex; align-items: center; justify-content: center;
         margin-bottom: 14px;
@@ -80,7 +77,7 @@
     }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
     .header-icon svg { width: 22px; height: 22px; color: #fff; }
-    h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin: 0 0 4px; color: #fff; }
+    h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin: 0 0 4px; color: var(--text); }
     @media (min-width: 768px) { h1 { font-size: 26px; } }
     p.sub { color: var(--text-secondary); margin: 0; font-size: 14px; }
     .form-section-title {
@@ -99,7 +96,7 @@
     input[type="text"], input[type="email"] {
         width: 100%;
         padding: 11px 12px 11px 38px;
-        background: var(--bg-secondary);
+        background: var(--bg);
         border: 1.5px solid var(--border);
         border-radius: var(--radius);
         color: var(--text);
@@ -110,10 +107,10 @@
         -webkit-appearance: none;
     }
     input[type="text"]:focus, input[type="email"]:focus {
-        outline: none; border-color: var(--border-focus); box-shadow: var(--shadow-glow); background: #131720;
+        outline: none; border-color: var(--border-focus); box-shadow: var(--shadow-glow); background: #FFFFFF;
     }
-    .input-wrapper:focus-within .input-icon { color: var(--accent-light); }
-    input::placeholder { color: #555c6b; opacity: 1; }
+    .input-wrapper:focus-within .input-icon { color: var(--accent); }
+    input::placeholder { color: #94A3B8; opacity: 1; }
     #dropZone {
         margin-top: 16px;
         border: 2px dashed var(--border);
@@ -122,68 +119,68 @@
         text-align: center;
         cursor: pointer;
         transition: all 0.25s;
-        background: var(--bg-secondary);
+        background: var(--bg);
         min-height: 120px;
         display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
     }
-    #dropZone:hover { border-color: #3d4f6e; background: #151a24; }
+    #dropZone:hover { border-color: #64748B; background: #F0FDFA; }
     #dropZone.dragover {
-        border-color: var(--accent); background: rgba(79, 124, 255, 0.05);
-        box-shadow: 0 0 0 8px rgba(79, 124, 255, 0.03); transform: scale(1.01);
+        border-color: var(--accent); background: rgba(20, 184, 166, 0.06);
+        box-shadow: 0 0 0 8px rgba(20, 184, 166, 0.04); transform: scale(1.01);
     }
-    #dropZone.has-file { border-style: solid; border-color: var(--success); background: rgba(45, 212, 160, 0.03); }
+    #dropZone.has-file { border-style: solid; border-color: var(--success); background: rgba(5, 150, 105, 0.04); }
     #dropZone p { margin: 0; color: var(--text-secondary); font-size: 14px; pointer-events: none; }
     #dropZone .drop-hint { font-size: 12px; color: var(--muted); pointer-events: none; }
     #dropZone .filename {
-        color: #fff; font-weight: 600; margin-top: 2px; font-size: 14px; pointer-events: none;
+        color: var(--text); font-weight: 600; margin-top: 2px; font-size: 14px; pointer-events: none;
         word-break: break-all; max-width: 100%;
-        background: rgba(45, 212, 160, 0.1); padding: 4px 12px; border-radius: 20px; display: inline-block;
+        background: rgba(5, 150, 105, 0.12); padding: 4px 12px; border-radius: 20px; display: inline-block;
     }
     .drop-icon {
         width: 40px; height: 40px; border-radius: 50%;
-        background: rgba(79, 124, 255, 0.1);
+        background: rgba(20, 184, 166, 0.12);
         display: flex; align-items: center; justify-content: center;
         transition: all 0.25s; pointer-events: none;
     }
-    #dropZone.dragover .drop-icon { background: rgba(79, 124, 255, 0.2); transform: scale(1.1); }
-    #dropZone.has-file .drop-icon { background: rgba(45, 212, 160, 0.15); }
-    .drop-icon svg { width: 20px; height: 20px; color: var(--accent-light); }
+    #dropZone.dragover .drop-icon { background: rgba(20, 184, 166, 0.22); transform: scale(1.1); }
+    #dropZone.has-file .drop-icon { background: rgba(5, 150, 105, 0.18); }
+    .drop-icon svg { width: 20px; height: 20px; color: var(--accent); }
     #dropZone.has-file .drop-icon svg { color: var(--success); }
     input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; }
     .remove-file-btn {
         display: none; margin-top: 8px; font-size: 12px; color: var(--error);
         cursor: pointer; background: none; border: none; text-decoration: underline; padding: 4px 8px;
     }
-    .remove-file-btn:hover { background: rgba(255, 92, 108, 0.1); }
+    .remove-file-btn:hover { background: rgba(220, 38, 38, 0.1); }
     .remove-file-btn.visible { display: inline-block; }
     .progress-wrap { margin-top: 14px; height: 5px; background: var(--border); border-radius: 10px; overflow: hidden; display: none; }
     .progress-bar {
         height: 100%; width: 0%;
-        background: linear-gradient(90deg, var(--accent), #6b90ff);
+        background: linear-gradient(90deg, #14B8A6, #2DD4BF);
         border-radius: 10px; transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 0 10px rgba(79, 124, 255, 0.5);
+        box-shadow: 0 0 10px rgba(20, 184, 166, 0.55);
     }
     .status {
         margin-top: 14px; font-size: 13px; padding: 11px 14px; border-radius: var(--radius);
         display: none; align-items: flex-start; gap: 8px; line-height: 1.4;
     }
-    .status.error { display: flex; background: var(--error-bg); color: #ff7b87; border: 1px solid rgba(255, 92, 108, 0.2); }
-    .status.success { display: flex; background: var(--success-bg); color: #4adea8; border: 1px solid rgba(45, 212, 160, 0.2); }
-    .status.info { display: flex; background: rgba(79, 124, 255, 0.06); color: #8aabff; border: 1px solid rgba(79, 124, 255, 0.2); }
+    .status.error { display: flex; background: var(--error-bg); color: #991B1B; border: 1px solid rgba(220, 38, 38, 0.25); }
+    .status.success { display: flex; background: var(--success-bg); color: #065F46; border: 1px solid rgba(5, 150, 105, 0.25); }
+    .status.info { display: flex; background: rgba(20, 184, 166, 0.08); color: #0F766E; border: 1px solid rgba(20, 184, 166, 0.25); }
     .status-icon { flex-shrink: 0; margin-top: 1px; }
     .status-icon svg { width: 16px; height: 16px; }
     .btn-wrapper { margin-top: 26px; }
     button {
         width: 100%; padding: 13px 20px;
-        background: linear-gradient(135deg, var(--accent), #5c86ff);
+        background: linear-gradient(135deg, #14B8A6, #2DD4BF);
         color: #fff; border: none; border-radius: var(--radius);
         font-size: 15px; font-weight: 600; cursor: pointer;
         transition: all 0.25s; position: relative; overflow: hidden; font-family: inherit;
-        box-shadow: 0 4px 16px rgba(79, 124, 255, 0.3);
+        box-shadow: 0 4px 16px rgba(20, 184, 166, 0.35);
     }
-    button:hover:not(:disabled) { background: linear-gradient(135deg, #5c86ff, #6b90ff); box-shadow: 0 6px 24px rgba(79, 124, 255, 0.45); transform: translateY(-1px); }
+    button:hover:not(:disabled) { background: linear-gradient(135deg, #0D9488, #2DD4BF); box-shadow: 0 6px 24px rgba(20, 184, 166, 0.5); transform: translateY(-1px); }
     button:active:not(:disabled) { transform: scale(0.97); transition: all 0.1s ease; }
-    button:disabled { background: #2a2f3a; cursor: not-allowed; color: #5a5f6b; box-shadow: none; transform: none; }
+    button:disabled { background: #CBD5E1; cursor: not-allowed; color: #94A3B8; box-shadow: none; transform: none; }
     button.loading { color: transparent; pointer-events: none; }
     button.loading::before {
         content: ''; position: absolute; top: 50%; left: 50%;
@@ -196,14 +193,14 @@
     .toast {
         position: fixed; bottom: 24px; left: 50%;
         transform: translateX(-50%) translateY(100px);
-        background: #1e2330; border: 1px solid var(--border); border-radius: var(--radius-lg);
-        padding: 12px 20px; font-size: 13px; color: #fff; z-index: 1000;
+        background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-lg);
+        padding: 12px 20px; font-size: 13px; color: var(--text); z-index: 1000;
         box-shadow: var(--shadow-lg); transition: transform 0.25s; pointer-events: none;
         text-align: center; max-width: 90vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
-    .toast.success { border-color: rgba(45, 212, 160, 0.5); background: #152a22; }
-    .toast.error { border-color: rgba(255, 92, 108, 0.5); background: #2a1518; }
+    .toast.success { border-color: rgba(5, 150, 105, 0.6); background: #F0FDF4; }
+    .toast.error { border-color: rgba(220, 38, 38, 0.6); background: #FEF2F2; }
     @media (max-width: 480px) {
         body { padding: 10px; align-items: flex-start; padding-top: 30px; }
         .card { padding: 24px 18px 22px; border-radius: var(--radius-lg); }
@@ -238,7 +235,7 @@
             <span class="input-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
             </span>
-            <input type="text" id="orgCode" placeholder="e.g. ACME24" maxlength="20" autocapitalize="characters" autocomplete="off">
+            <input type="text" id="orgCode" placeholder="e.g. ACME24" maxlength="20" autocomplete="off">
         </div>
 
         <label for="jobId">Job Opening ID</label>
@@ -246,7 +243,7 @@
             <span class="input-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             </span>
-            <input type="text" id="jobId" placeholder="e.g. SENIOR_DEV" maxlength="30" autocapitalize="characters" autocomplete="off">
+            <input type="text" id="jobId" placeholder="e.g. SENIOR_DEV" maxlength="30" autocomplete="off">
         </div>
 
         <div class="form-section-title">Personal Information</div>
@@ -295,7 +292,6 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Mammoth.js still uses a classic global build — fine as a normal script tag -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.7.0/mammoth.browser.min.js"></script>
 
 <script type="module">
@@ -318,8 +314,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// --- pdf.js is ES-module-only as of v6+. Lazy-load it on first use so a CDN
-// failure only breaks PDF parsing, not the whole page (Firebase, DOCX, etc). ---
 const PDFJS_VERSION = "6.1.200";
 let _pdfjsLib = null;
 async function getPdfjsLib() {
@@ -347,21 +341,8 @@ const jobIdInput = document.getElementById('jobId');
 let selectedFile = null;
 let extractedText = null;
 const MAX_SIZE_BYTES = 10 * 1024 * 1024;
-const MAX_RESUME_TEXT_CHARS = 15000; // keeps Firestore docs small and matches typical LLM input sizing
+const MAX_RESUME_TEXT_CHARS = 15000;
 let toastTimer = null;
-
-// --- Real-time, cursor-safe uppercase transform (replaces the old CSS-only trick,
-// which only changed how text LOOKED, not what was actually stored). ---
-function forceUppercaseLive(inputEl) {
-    inputEl.addEventListener('input', () => {
-        const start = inputEl.selectionStart;
-        const end = inputEl.selectionEnd;
-        inputEl.value = inputEl.value.toUpperCase();
-        inputEl.setSelectionRange(start, end);
-    });
-}
-forceUppercaseLive(orgCodeInput);
-forceUppercaseLive(jobIdInput);
 
 function showToast(message, type = '') {
     if (toastTimer) clearTimeout(toastTimer);
@@ -543,11 +524,6 @@ async function extractPdfText(file) {
         const page = await pdf.getPage(pageNum);
         const content = await page.getTextContent();
 
-        // Group items into lines by Y-position (with tolerance for slight baseline
-        // jitter), then sort each line left-to-right by X before joining. This
-        // tightens up ordering versus trusting raw PDF stream order.
-        // NOTE: true multi-column (sidebar + main column) layouts still aren't
-        // separated — that needs column-clustering, a further upgrade if needed.
         const Y_TOLERANCE = 3;
         const lineGroups = [];
 
@@ -562,7 +538,7 @@ async function extractPdfText(file) {
             group.items.push({ x, str: item.str });
         }
 
-        lineGroups.sort((a, b) => b.y - a.y); // top to bottom
+        lineGroups.sort((a, b) => b.y - a.y);
         const lines = lineGroups.map(g =>
             g.items.sort((a, b) => a.x - b.x).map(i => i.str).join(' ')
         );
@@ -594,8 +570,8 @@ function isValidEmail(email) {
 }
 
 submitBtn.addEventListener('click', async () => {
-    const orgCode = orgCodeInput.value.trim();
-    const jobId = jobIdInput.value.trim();
+    const orgCode = orgCodeInput.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '_');
+    const jobId = jobIdInput.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '_');
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
 
